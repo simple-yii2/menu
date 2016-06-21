@@ -1,0 +1,22 @@
+{
+    "name": "simpleyiicms/mainmenu",
+    "description": "Main menu module for Yii PHP Framework Version 2",
+    "type": "yii2-module",
+    "keywords": ["yii2","module","mainmenu"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Dmitry Khlystov",
+            "email": "dkhlystov@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "creocoder/yii2-nested-sets": "0.9.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "mainmenu\\": ""
+        }
+    }
+}
