@@ -17,9 +17,9 @@ class Menu extends ActiveRecord {
 	/**
 	 * Menu item types
 	 */
-	const SECTION = 0;
-	const LINK = 1;
-	const PAGE = 2;
+	const TYPE_SECTION = 0;
+	const TYPE_LINK = 1;
+	const TYPE_PAGE = 2;
 
 	/**
 	 * Making available type list
@@ -28,8 +28,8 @@ class Menu extends ActiveRecord {
 	public static function getTypeList()
 	{
 		$typeList = [
-			self::SECTION => Yii::t('menu', 'Section'),
-			self::LINK => Yii::t('menu', 'Link'),
+			self::TYPE_SECTION => Yii::t('menu', 'Section'),
+			self::TYPE_LINK => Yii::t('menu', 'Link'),
 		];
 
 		foreach (Yii::$app->getModules(false) as $module) {
@@ -42,7 +42,7 @@ class Menu extends ActiveRecord {
 			}
 
 			if ($className == 'page\backend\Module')
-				$typeList[self::PAGE] = Yii::t('menu', 'Page');
+				$typeList[self::TYPE_PAGE] = Yii::t('menu', 'Page');
 		}
 
 		return $typeList;
@@ -55,7 +55,7 @@ class Menu extends ActiveRecord {
 	 */
 	public static function getAliasList($type)
 	{
-		if ($type == self::PAGE)
+		if ($type == self::TYPE_PAGE)
 			return self::getPageAliasList();
 
 		return [];
