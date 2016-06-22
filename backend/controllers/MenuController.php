@@ -1,6 +1,6 @@
 <?php
 
-namespace mainmenu\backend\controllers;
+namespace menu\backend\controllers;
 
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -8,13 +8,13 @@ use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\Controller;
 
-use mainmenu\backend\models\MainmenuForm;
-use mainmenu\common\models\Mainmenu;
+use menu\backend\models\MenuForm;
+use menu\common\models\Menu;
 
 /**
  * Main menu manage controller
  */
-class MainmenuController extends Controller
+class MenuController extends Controller
 {
 
 	/**
@@ -27,7 +27,7 @@ class MainmenuController extends Controller
 			'access' => [
 				'class' => AccessControl::className(),
 				'rules' => [
-					['allow' => true, 'roles' => ['mainmenu']],
+					['allow' => true, 'roles' => ['menu']],
 				],
 			],
 		];
@@ -40,10 +40,10 @@ class MainmenuController extends Controller
 	 */
 	public function actionIndex($id = null)
 	{
-		$initial = Mainmenu::findOne($id);
+		$initial = Menu::findOne($id);
 
 		$dataProvider = new ActiveDataProvider([
-			'query' => Mainmenu::find(),
+			'query' => Menu::find(),
 		]);
 
 		return $this->render('index', [
@@ -59,10 +59,10 @@ class MainmenuController extends Controller
 	 */
 	public function actionCreate($id = null)
 	{
-		$model = new MainmenuForm;
+		$model = new MenuForm;
 
 		if ($model->load(Yii::$app->getRequest()->post()) && $model->create($id)) {
-			Yii::$app->session->setFlash('success', Yii::t('mainmenu', 'Changes saved successfully.'));
+			Yii::$app->session->setFlash('success', Yii::t('menu', 'Changes saved successfully.'));
 			return $this->redirect([
 				'index',
 				'id' => $model->item->id,
@@ -82,14 +82,14 @@ class MainmenuController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$item = Mainmenu::findOne($id);
+		$item = Menu::findOne($id);
 		if ($item === null)
-			throw new BadRequestHttpException(Yii::t('mainmenu', 'Menu item not found.'));
+			throw new BadRequestHttpException(Yii::t('menu', 'Menu item not found.'));
 
-		$model = new MainmenuForm(['item' => $item]);
+		$model = new MenuForm(['item' => $item]);
 
 		if ($model->load(Yii::$app->getRequest()->post()) && $model->update()) {
-			Yii::$app->session->setFlash('success', Yii::t('mainmenu', 'Changes saved successfully.'));
+			Yii::$app->session->setFlash('success', Yii::t('menu', 'Changes saved successfully.'));
 			return $this->redirect([
 				'index',
 				'id' => $model->item->id,
@@ -108,25 +108,25 @@ class MainmenuController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$item = Mainmenu::findOne($id);
+		$item = Menu::findOne($id);
 		if ($item === null)
-			throw new BadRequestHttpException(Yii::t('mainmenu', 'Menu item not found.'));
+			throw new BadRequestHttpException(Yii::t('menu', 'Menu item not found.'));
 
 		if ($item->delete())
-			Yii::$app->session->setFlash('success', Yii::t('mainmenu', 'Menu item deleted successfully.'));
+			Yii::$app->session->setFlash('success', Yii::t('menu', 'Menu item deleted successfully.'));
 
 		return $this->redirect(['index']);
 	}
 
 	public function actionMove($id, $target, $position)
 	{
-		$item = Mainmenu::findOne($id);
+		$item = Menu::findOne($id);
 		if ($item === null)
-			throw new BadRequestHttpException(Yii::t('mainmenu', 'Menu item not found.'));
+			throw new BadRequestHttpException(Yii::t('menu', 'Menu item not found.'));
 
-		$t = Mainmenu::findOne($target);
+		$t = Menu::findOne($target);
 		if ($t === null)
-			throw new BadRequestHttpException(Yii::t('mainmenu', 'Menu item not found.'));
+			throw new BadRequestHttpException(Yii::t('menu', 'Menu item not found.'));
 
 		switch ($position) {
 			case 0:
@@ -152,7 +152,7 @@ class MainmenuController extends Controller
 	{
 		return Json::encode([
 			'type' => (integer) $type,
-			'items' => Mainmenu::getAliasList($type),
+			'items' => Menu::getAliasList($type),
 		]);
 	}
 

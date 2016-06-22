@@ -1,13 +1,13 @@
 <?php
 
-namespace mainmenu\backend;
+namespace menu\backend;
 
 use Yii;
 
-use mainmenu\common\models\Mainmenu;
+use menu\common\models\Menu;
 
 /**
- * Main menu backend module
+ * Menu backend module
  */
 class Module extends \yii\base\Module {
 
@@ -39,16 +39,16 @@ class Module extends \yii\base\Module {
 
 		//rbac
 		$auth = Yii::$app->getAuthManager();
-		if ($auth->getRole('mainmenu') === null) {
-			//mainmenu role
-			$mainmenu = $auth->createRole('mainmenu');
-			$auth->add($mainmenu);
+		if ($auth->getRole('menu') === null) {
+			//menu role
+			$menu = $auth->createRole('menu');
+			$auth->add($menu);
 		}
 
 		//data
-		$root = Mainmenu::find()->roots()->one();
+		$root = Menu::find()->roots()->one();
 		if ($root === null) {
-			$root = new Mainmenu(['name' => 'Root']);
+			$root = new Menu(['name' => 'Root']);
 			$root->makeRoot();
 		}
 	}
@@ -59,22 +59,22 @@ class Module extends \yii\base\Module {
 	 */
 	protected function addTranslation()
 	{
-		Yii::$app->i18n->translations['mainmenu'] = [
+		Yii::$app->i18n->translations['menu'] = [
 			'class'=>'yii\i18n\PhpMessageSource',
 			'sourceLanguage'=>'en-US',
-			'basePath'=>'@mainmenu/messages',
+			'basePath'=>'@menu/messages',
 		];
 	}
 
 	/**
-	 * Making main menu item of module
+	 * Making menu item of module
 	 * @return array
 	 */
 	public function getMenuItem()
 	{
-		if (Yii::$app->user->can('mainmenu')) {
+		if (Yii::$app->user->can('menu')) {
 			return [
-				['label' => Yii::t('mainmenu', 'Main menu'), 'url' => ['/mainmenu/mainmenu/index']],
+				['label' => Yii::t('menu', 'Main menu'), 'url' => ['/menu/menu/index']],
 			];
 		}
 		

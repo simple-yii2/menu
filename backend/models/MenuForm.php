@@ -1,16 +1,16 @@
 <?php
 
-namespace mainmenu\backend\models;
+namespace menu\backend\models;
 
 use Yii;
 use yii\base\Model;
 
-use mainmenu\common\models\Mainmenu;
+use menu\common\models\Menu;
 
 /**
  * Main menu item editting form
  */
-class MainmenuForm extends Model {
+class MenuForm extends Model {
 
 	/**
 	 * @var string Main menu item name.
@@ -24,7 +24,7 @@ class MainmenuForm extends Model {
 
 	/**
 	 * @var integer Type of menu item.
-	 * @see mainmenu\common\models\Mainmenu
+	 * @see menu\common\models\Menu
 	 */
 	public $type;
 
@@ -39,7 +39,7 @@ class MainmenuForm extends Model {
 	public $alias;
 
 	/**
-	 * @var mainmenu\common\models\Mainmnu Menu item model
+	 * @var menu\common\models\Mainmnu Menu item model
 	 */
 	public $item;
 
@@ -48,11 +48,11 @@ class MainmenuForm extends Model {
 	 */
 	public function attributeLabels() {
 		return [
-			'name' => Yii::t('mainmenu', 'Name'),
-			'active' => Yii::t('mainmenu', 'Active'),
-			'type' => Yii::t('mainmenu', 'Type'),
-			'url' => Yii::t('mainmenu', 'Url'),
-			'alias' => Yii::t('mainmenu', 'Resource'),
+			'name' => Yii::t('menu', 'Name'),
+			'active' => Yii::t('menu', 'Active'),
+			'type' => Yii::t('menu', 'Type'),
+			'url' => Yii::t('menu', 'Url'),
+			'alias' => Yii::t('menu', 'Resource'),
 		];
 	}
 
@@ -76,7 +76,7 @@ class MainmenuForm extends Model {
 		parent::init();
 
 		$this->active = true;
-		$this->type = Mainmenu::LINK;
+		$this->type = Menu::LINK;
 		
 		if ($this->item !== null) {
 			$this->setAttributes([
@@ -97,14 +97,14 @@ class MainmenuForm extends Model {
 		if (!$this->validate())
 			return false;
 
-		$parent = Mainmenu::findOne($parent_id);
+		$parent = Menu::findOne($parent_id);
 		if ($parent === null)
-			$parent = Mainmenu::find()->roots()->one();
+			$parent = Menu::find()->roots()->one();
 
 		if ($parent === null)
 			return false;
 
-		$this->item = new Mainmenu;
+		$this->item = new Menu;
 
 		$this->item->setAttributes([
 			'name' => $this->name,

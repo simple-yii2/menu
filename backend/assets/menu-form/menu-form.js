@@ -1,11 +1,11 @@
 $(function() {
 
-	$(document).on('change', '.mainmenu-form #mainmenuform-type', function() {
+	$(document).on('change', '.menu-form #menuform-type', function() {
 		var $this = $(this),
 			type = parseInt($this.val()),
 			$form = $this.closest('form'),
-			$urlGroup = $form.find('.field-mainmenuform-url'),
-			$aliasGroup = $form.find('.field-mainmenuform-alias');
+			$urlGroup = $form.find('.field-menuform-url'),
+			$aliasGroup = $form.find('.field-menuform-alias');
 
 		if (type === 1) {
 			$urlGroup.removeClass('hidden');

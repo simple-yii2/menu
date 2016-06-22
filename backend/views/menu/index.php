@@ -3,9 +3,9 @@
 use yii\helpers\Html;
 
 use dkhlystov\widgets\NestedTreeGrid;
-use mainmenu\common\models\Mainmenu;
+use menu\common\models\Menu;
 
-$title = Yii::t('mainmenu', 'Main menu');
+$title = Yii::t('menu', 'Main menu');
 
 $this->title = $title . '|' . Yii::$app->name;
 
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'] = [
 <h1><?= Html::encode($title) ?></h1>
 
 <div class="btn-toolbar" role="toolbar">
-	<?= Html::a(Yii::t('mainmenu', 'Create'), ['create'], ['class' => 'btn btn-primary']) ?>
+	<?= Html::a(Yii::t('menu', 'Create'), ['create'], ['class' => 'btn btn-primary']) ?>
 </div>
 
 <?= NestedTreeGrid::widget([
@@ -36,9 +36,9 @@ $this->params['breadcrumbs'] = [
 			'template' => '{update} {delete} {create}',
 			'buttons' => [
 				'create' => function ($url, $model, $key) {
-					if ($model->type != Mainmenu::SECTION) return '';
+					if ($model->type != Menu::SECTION) return '';
 
-					$title = Yii::t('mainmenu', 'Create');
+					$title = Yii::t('menu', 'Create');
 
 					return Html::a('<span class="glyphicon glyphicon-plus"></span>', $url, [
 						'title' => $title,

@@ -1,4 +1,4 @@
-create table if not exists `Mainmenu`
+create table if not exists `Menu`
 (
 	`id` int(10) not null auto_increment,
 	`lft` int(10) not null,

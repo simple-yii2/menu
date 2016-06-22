@@ -1,8 +1,8 @@
 {
-    "name": "simple-yii2/mainmenu",
+    "name": "simple-yii2/menu",
     "description": "Main menu module for Yii PHP Framework Version 2",
     "type": "yii2-module",
-    "keywords": ["yii2","module","mainmenu"],
+    "keywords": ["yii2","module","menu"],
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "mainmenu\\": ""
+            "menu\\": ""
         }
     }
 }

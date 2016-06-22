@@ -1,6 +1,6 @@
 <?php
 
-namespace mainmenu\common\models;
+namespace menu\common\models;
 
 use Yii;
 use yii\db\ActiveQuery;
@@ -12,7 +12,7 @@ use creocoder\nestedsets\NestedSetsQueryBehavior;
 /**
  * Main menu active record
  */
-class Mainmenu extends ActiveRecord {
+class Menu extends ActiveRecord {
 
 	/**
 	 * Menu item types
@@ -28,8 +28,8 @@ class Mainmenu extends ActiveRecord {
 	public static function getTypeList()
 	{
 		$typeList = [
-			self::SECTION => Yii::t('mainmenu', 'Section'),
-			self::LINK => Yii::t('mainmenu', 'Link'),
+			self::SECTION => Yii::t('menu', 'Section'),
+			self::LINK => Yii::t('menu', 'Link'),
 		];
 
 		foreach (Yii::$app->getModules(false) as $module) {
@@ -42,7 +42,7 @@ class Mainmenu extends ActiveRecord {
 			}
 
 			if ($className == 'page\backend\Module')
-				$typeList[self::PAGE] = Yii::t('mainmenu', 'Page');
+				$typeList[self::PAGE] = Yii::t('menu', 'Page');
 		}
 
 		return $typeList;
@@ -80,7 +80,7 @@ class Mainmenu extends ActiveRecord {
 	 * @inheritdoc
 	 */
 	public static function tableName() {
-		return 'Mainmenu';
+		return 'Menu';
 	}
 
 	/**
@@ -88,10 +88,10 @@ class Mainmenu extends ActiveRecord {
 	 */
 	public function attributeLabels() {
 		return [
-			'name' => Yii::t('mainmenu', 'Name'),
-			'active' => Yii::t('mainmenu', 'Active'),
-			'type' => Yii::t('mainmenu', 'Type'),
-			'url' => Yii::t('mainmenu', 'Url'),
+			'name' => Yii::t('menu', 'Name'),
+			'active' => Yii::t('menu', 'Active'),
+			'type' => Yii::t('menu', 'Type'),
+			'url' => Yii::t('menu', 'Url'),
 		];
 	}
 
@@ -112,7 +112,7 @@ class Mainmenu extends ActiveRecord {
 	 */
 	public static function find()
 	{
-		return new MainmenuQuery(get_called_class());
+		return new MenuQuery(get_called_class());
 	}
 
 }
@@ -120,7 +120,7 @@ class Mainmenu extends ActiveRecord {
 /**
  * Main menu active query
  */
-class MainmenuQuery extends ActiveQuery
+class MenuQuery extends ActiveQuery
 {
 
 	/**

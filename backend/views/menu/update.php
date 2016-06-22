@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 
-$title = Yii::t('mainmenu', 'Create menu item');
+$title = $model->item->name;
 
 $this->title = $title . '|' . Yii::$app->name;
 
 $this->params['breadcrumbs'] = [
-	['label' => Yii::t('mainmenu', 'Main menu'), 'url' => ['index']],
+	['label' => Yii::t('menu', 'Main menu'), 'url' => ['index']],
 	$title,
 ];
 
@@ -16,5 +16,5 @@ $this->params['breadcrumbs'] = [
 
 <?= $this->render('_form', [
 	'model' => $model,
-	'id' => $id,
+	'id' => $model->item->id,
 ]) ?>
