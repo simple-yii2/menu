@@ -4,9 +4,10 @@ namespace menu\backend\assets;
 
 use yii\web\AssetBundle;
 
-class MenuFormAsset extends AssetBundle {
+class MenuFormAsset extends AssetBundle
+{
 
-	public $sourcePath = '@menu/backend/assets/menu-form';
+	public $sourcePath = __DIR__ . '/menu-form';
 
 	public $js = [
 		'menu-form.js',
