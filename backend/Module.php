@@ -39,9 +39,9 @@ class Module extends \yii\base\Module {
 
 		//rbac
 		$auth = Yii::$app->getAuthManager();
-		if ($auth->getRole('menu') === null) {
+		if ($auth->getRole('Menu') === null) {
 			//menu role
-			$menu = $auth->createRole('menu');
+			$menu = $auth->createRole('Menu');
 			$auth->add($menu);
 		}
 

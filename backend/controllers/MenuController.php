@@ -27,7 +27,7 @@ class MenuController extends Controller
 			'access' => [
 				'class' => AccessControl::className(),
 				'rules' => [
-					['allow' => true, 'roles' => ['menu']],
+					['allow' => true, 'roles' => ['Menu']],
 				],
 			],
 		];
