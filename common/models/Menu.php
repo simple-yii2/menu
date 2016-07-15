@@ -79,14 +79,16 @@ class Menu extends ActiveRecord {
 	/**
 	 * @inheritdoc
 	 */
-	public static function tableName() {
+	public static function tableName()
+	{
 		return 'Menu';
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	public function attributeLabels() {
+	public function attributeLabels()
+	{
 		return [
 			'name' => Yii::t('menu', 'Name'),
 			'active' => Yii::t('menu', 'Active'),

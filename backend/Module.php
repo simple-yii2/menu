@@ -61,9 +61,9 @@ class Module extends \yii\base\Module {
 	{
 		if (!isset(Yii::$app->i18n->translations['menu'])) {
 			Yii::$app->i18n->translations['menu'] = [
-				'class'=>'yii\i18n\PhpMessageSource',
-				'sourceLanguage'=>'en-US',
-				'basePath'=>'@menu/messages',
+				'class' => 'yii\i18n\PhpMessageSource',
+				'sourceLanguage' => 'en-US',
+				'basePath' => dirname(__DIR__) . '/messages',
 			];
 		}
 	}
@@ -77,7 +77,7 @@ class Module extends \yii\base\Module {
 	{
 		self::addTranslation();
 
-		if (Yii::$app->user->can('menu')) {
+		if (Yii::$app->user->can('Menu')) {
 			return [
 				['label' => Yii::t('menu', 'Main menu'), 'url' => ["$base/menu/menu/index"]],
 			];
