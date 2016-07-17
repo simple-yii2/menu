@@ -20,6 +20,7 @@ class Menu extends ActiveRecord {
 	const TYPE_SECTION = 0;
 	const TYPE_LINK = 1;
 	const TYPE_PAGE = 2;
+	const TYPE_GALLERY = 3;
 
 	/**
 	 * Making available type list
@@ -43,6 +44,9 @@ class Menu extends ActiveRecord {
 
 			if ($className == 'page\backend\Module')
 				$typeList[self::TYPE_PAGE] = Yii::t('menu', 'Page');
+
+			if ($className == 'gallery\backend\Module')
+				$typeList[self::TYPE_GALLERY] = Yii::t('menu', 'Gallery');
 		}
 
 		return $typeList;
@@ -58,6 +62,9 @@ class Menu extends ActiveRecord {
 		if ($type == self::TYPE_PAGE)
 			return self::getPageAliasList();
 
+		if ($type == self::TYPE_GALLERY)
+			return self::getGalleryAliasList();
+
 		return [];
 	}
 
@@ -70,6 +77,21 @@ class Menu extends ActiveRecord {
 		$items = [];
 
 		foreach (\page\common\models\Page::find()->select(['alias', 'title'])->asArray()->all() as $row) {
+			$items[$row['alias']] = $row['title'];
+		}
+
+		return $items;
+	}
+
+	/**
+	 * Make gallery alias list
+	 * @return array
+	 */
+	protected static function getGalleryAliasList()
+	{
+		$items = [];
+
+		foreach (\gallery\common\models\Gallery::find()->select(['alias', 'title'])->asArray()->all() as $row) {
 			$items[$row['alias']] = $row['title'];
 		}
 
