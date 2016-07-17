@@ -32,7 +32,7 @@ class Menu extends ActiveRecord {
 			self::TYPE_LINK => Yii::t('menu', 'Link'),
 		];
 
-		foreach (Yii::$app->getModules(false) as $module) {
+		foreach (Yii::$app->controller->module->module->getModules(false) as $module) {
 			if (is_string($module)) {
 				$className = $module;
 			} elseif (is_array($module)) {
