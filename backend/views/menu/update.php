@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 $title = $model->item->name;
 
-$this->title = $title . '|' . Yii::$app->name;
+$this->title = $title . ' | ' . Yii::$app->name;
 
 $this->params['breadcrumbs'] = [
 	['label' => Yii::t('menu', 'Main menu'), 'url' => ['index']],

@@ -7,7 +7,7 @@ use menu\common\models\Menu;
 
 $title = Yii::t('menu', 'Main menu');
 
-$this->title = $title . '|' . Yii::$app->name;
+$this->title = $title . ' | ' . Yii::$app->name;
 
 $this->params['breadcrumbs'] = [
 	$title,
