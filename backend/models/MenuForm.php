@@ -76,7 +76,7 @@ class MenuForm extends Model {
 		parent::init();
 
 		$this->active = true;
-		$this->type = Menu::LINK;
+		$this->type = Menu::TYPE_LINK;
 		
 		if ($this->item !== null) {
 			$this->setAttributes([

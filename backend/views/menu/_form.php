@@ -14,14 +14,14 @@ if ($model->item !== null && $model->item->children()->count() > 0)
 	$typeOptions['disabled'] = true;
 
 $urlOptions = [];
-if ($model->type !== Menu::LINK)
+if ($model->type !== Menu::TYPE_LINK)
 	$urlOptions['options'] = ['class' => 'form-group hidden'];
 
 $aliasOptions = ['options' => [
 	'data-url' => Url::toRoute('alias'),
 	'class' => 'form-group',
 ]];
-if ($model->type === Menu::SECTION || $model->type === Menu::LINK)
+if ($model->type === Menu::TYPE_SECTION || $model->type === Menu::TYPE_LINK)
 	Html::addCssClass($aliasOptions['options'], 'hidden');
 
 ?>
