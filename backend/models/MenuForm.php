@@ -127,6 +127,9 @@ class MenuForm extends Model {
 		if ($this->item === null)
 			return false;
 
+		if (!$this->validate())
+			return false;
+
 		$this->item->setAttributes([
 			'name' => $this->name,
 			'active' => $this->active,
