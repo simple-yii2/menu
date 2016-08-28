@@ -36,7 +36,7 @@ $this->params['breadcrumbs'] = [
 			'template' => '{update} {delete} {create}',
 			'buttons' => [
 				'create' => function ($url, $model, $key) {
-					if ($model->type != Menu::SECTION) return '';
+					if ($model->type != Menu::TYPE_SECTION) return '';
 
 					$title = Yii::t('menu', 'Create');
 
