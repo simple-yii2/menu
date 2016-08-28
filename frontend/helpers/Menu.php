@@ -137,10 +137,10 @@ class Menu
 			}
 
 			if ($className == 'page\frontend\Module')
-				self::$_pageRoute = '/' . $name . '/default/index';
+				self::$_pageRoute = '/' . $name . '/page/index';
 
 			if ($className == 'gallery\frontend\Module')
-				self::$_galleryRoute = '/' . $name . '/default/index';
+				self::$_galleryRoute = '/' . $name . '/gallery/index';
 		}
 	}
 
