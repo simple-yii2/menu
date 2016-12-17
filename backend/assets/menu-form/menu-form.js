@@ -13,7 +13,7 @@ $(function() {
 			$urlGroup.addClass('hidden');
 		}
 
-		if (type === 0 || type === 1) {
+		if (type === 0 || type === 1 || type === 4) {
 			$aliasGroup.addClass('hidden');
 		} else {
 			$aliasGroup.removeClass('hidden');

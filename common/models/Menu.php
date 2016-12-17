@@ -21,6 +21,7 @@ class Menu extends ActiveRecord {
 	const TYPE_LINK = 1;
 	const TYPE_PAGE = 2;
 	const TYPE_GALLERY = 3;
+	const TYPE_CONTACTS = 4;
 
 	/**
 	 * Making available type list
@@ -47,6 +48,9 @@ class Menu extends ActiveRecord {
 
 			if ($className == 'gallery\backend\Module')
 				$typeList[self::TYPE_GALLERY] = Yii::t('menu', 'Gallery');
+
+			if ($className == 'simple\contacts\backend\Module')
+				$typeList[self::TYPE_CONTACTS] = Yii::t('menu', 'Contacts');
 		}
 
 		return $typeList;

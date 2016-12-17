@@ -23,6 +23,11 @@ class Menu
 	private static $_galleryRoute;
 
 	/**
+	 * @var string Route to contacts module
+	 */
+	private static $_contactsRoute;
+
+	/**
 	 * Get main menu items
 	 * @param boolean $activeOnly 
 	 * @return array
@@ -89,6 +94,10 @@ class Menu
 				$url = [self::getGalleryRoute(), 'alias' => $item->alias];
 				break;
 			
+			case models\Menu::TYPE_CONTACTS:
+				$url = [self::getContactsRoute()];
+				break;
+			
 			default:
 				$url = '#';
 				break;
@@ -122,6 +131,18 @@ class Menu
 	}
 
 	/**
+	 * Get route to contacts module
+	 * @return string
+	 */
+	public static function getContactsRoute()
+	{
+		if (self::$_contactsRoute === null)
+			self::prepareRoutes();
+		
+		return self::$_contactsRoute;
+	}
+
+	/**
 	 * Determine routes from application module config
 	 * @return void
 	 */
@@ -141,6 +162,9 @@ class Menu
 
 			if ($className == 'gallery\frontend\Module')
 				self::$_galleryRoute = '/' . $name . '/gallery/index';
+
+			if ($className == 'simple\contacts\frontend\Module')
+				self::$_contactsRoute = '/' . $name . '/contact/index';
 		}
 	}
 
