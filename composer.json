@@ -1,6 +1,6 @@
 {
     "name": "simple-yii2/menu",
-    "description": "Main menu module for Yii PHP Framework Version 2",
+    "description": "Menu module for Yii 2 framework",
     "type": "yii2-module",
     "keywords": ["yii2","module","menu"],
     "license": "BSD-3-Clause",
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "menu\\": ""
+            "cms\\menu\\": ""
         }
     }
 }
