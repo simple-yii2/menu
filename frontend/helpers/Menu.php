@@ -15,17 +15,17 @@ class Menu
 	/**
 	 * @var string Route to page module
 	 */
-	private static $_pageRoute;
+	private static $_pageRoute = '/page/page/index';
 
 	/**
 	 * @var string Route to gallery module
 	 */
-	private static $_galleryRoute;
+	private static $_galleryRoute = '/gallery/gallery/index';
 
 	/**
 	 * @var string Route to contacts module
 	 */
-	private static $_contactsRoute;
+	private static $_contactsRoute = '/contact/contact/index';
 
 	/**
 	 * Get main menu items
