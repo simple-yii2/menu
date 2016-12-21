@@ -4,8 +4,8 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-use menu\backend\assets\MenuFormAsset;
-use menu\common\models\Menu;
+use cms\menu\backend\assets\MenuFormAsset;
+use cms\menu\common\models\Menu;
 
 MenuFormAsset::register($this);
 

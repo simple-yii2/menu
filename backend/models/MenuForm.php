@@ -1,11 +1,11 @@
 <?php
 
-namespace menu\backend\models;
+namespace cms\menu\backend\models;
 
 use Yii;
 use yii\base\Model;
 
-use menu\common\models\Menu;
+use cms\menu\common\models\Menu;
 
 /**
  * Main menu item editting form

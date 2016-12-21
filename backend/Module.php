@@ -1,10 +1,10 @@
 <?php
 
-namespace menu\backend;
+namespace cms\menu\backend;
 
 use Yii;
 
-use menu\common\models\Menu;
+use cms\menu\common\models\Menu;
 
 /**
  * Menu backend module

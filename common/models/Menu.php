@@ -1,6 +1,6 @@
 <?php
 
-namespace menu\common\models;
+namespace cms\menu\common\models;
 
 use Yii;
 use yii\db\ActiveQuery;

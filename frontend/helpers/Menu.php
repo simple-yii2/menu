@@ -1,10 +1,10 @@
 <?php
 
-namespace menu\frontend\helpers;
+namespace cms\menu\frontend\helpers;
 
 use Yii;
 
-use menu\common\models;
+use cms\menu\common\models;
 
 /**
  * Main menu helper.

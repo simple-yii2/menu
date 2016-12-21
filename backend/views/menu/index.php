@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 use dkhlystov\widgets\NestedTreeGrid;
-use menu\common\models\Menu;
+use cms\menu\common\models\Menu;
 
 $title = Yii::t('menu', 'Main menu');
 

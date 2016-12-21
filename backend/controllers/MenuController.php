@@ -1,6 +1,6 @@
 <?php
 
-namespace menu\backend\controllers;
+namespace cms\menu\backend\controllers;
 
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -8,8 +8,8 @@ use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\Controller;
 
-use menu\backend\models\MenuForm;
-use menu\common\models\Menu;
+use cms\menu\backend\models\MenuForm;
+use cms\menu\common\models\Menu;
 
 /**
  * Main menu manage controller
