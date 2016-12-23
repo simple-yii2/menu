@@ -43,13 +43,13 @@ class Menu extends ActiveRecord {
 				$className = $module::className();
 			}
 
-			if ($className == 'page\backend\Module')
+			if ($className == 'cms\page\backend\Module')
 				$typeList[self::TYPE_PAGE] = Yii::t('menu', 'Page');
 
-			if ($className == 'gallery\backend\Module')
+			if ($className == 'cms\gallery\backend\Module')
 				$typeList[self::TYPE_GALLERY] = Yii::t('menu', 'Gallery');
 
-			if ($className == 'simple\contacts\backend\Module')
+			if ($className == 'cms\contact\backend\Module')
 				$typeList[self::TYPE_CONTACTS] = Yii::t('menu', 'Contacts');
 		}
 
