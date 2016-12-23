@@ -137,6 +137,19 @@ class Menu extends ActiveRecord
 	}
 
 	/**
+	 * Find by alias
+	 * @param sring $alias Alias or id
+	 * @return Menu
+	 */
+	public static function findByAlias($alias) {
+		$model = static::findOne(['alias' => $alias]);
+		if ($model === null)
+			$model = static::findOne(['id' => $alias]);
+
+		return $model;
+	}
+
+	/**
 	 * @inheritdoc
 	 */
 	public function behaviors()

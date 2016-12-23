@@ -29,12 +29,18 @@ class Menu
 
 	/**
 	 * Get main menu items
+	 * @param string $alias 
 	 * @param boolean $activeOnly 
 	 * @return array
 	 */
-	public static function getItems($activeOnly = true)
+	public static function getItems($alias, $activeOnly = true)
 	{
-		$root = models\Menu::find()->roots()->one();
+		$root = models\Menu::findByAlias($alias);
+		if ($root === null)
+			return [];
+
+		if ($activeOnly && !$root->active)
+			return [];
 
 		$query = $root->children();
 		if ($activeOnly)
@@ -157,13 +163,13 @@ class Menu
 				$className = $module::className();
 			}
 
-			if ($className == 'page\frontend\Module')
+			if ($className == 'cms\page\frontend\Module')
 				self::$_pageRoute = '/' . $name . '/page/index';
 
-			if ($className == 'gallery\frontend\Module')
+			if ($className == 'cms\gallery\frontend\Module')
 				self::$_galleryRoute = '/' . $name . '/gallery/index';
 
-			if ($className == 'simple\contacts\frontend\Module')
+			if ($className == 'cms\contact\frontend\Module')
 				self::$_contactsRoute = '/' . $name . '/contact/index';
 		}
 	}
