@@ -44,13 +44,6 @@ class Module extends \yii\base\Module {
 			$menu = $auth->createRole('Menu');
 			$auth->add($menu);
 		}
-
-		//data
-		$root = Menu::find()->roots()->one();
-		if ($root === null) {
-			$root = new Menu(['name' => 'Root']);
-			$root->makeRoot();
-		}
 	}
 
 	/**
@@ -79,7 +72,7 @@ class Module extends \yii\base\Module {
 
 		if (Yii::$app->user->can('Menu')) {
 			return [
-				['label' => Yii::t('menu', 'Main menu'), 'url' => ["$base/menu/menu/index"]],
+				['label' => Yii::t('menu', 'Menus'), 'url' => ["$base/menu/menu/index"]],
 			];
 		}
 		

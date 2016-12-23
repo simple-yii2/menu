@@ -12,7 +12,8 @@ use creocoder\nestedsets\NestedSetsQueryBehavior;
 /**
  * Main menu active record
  */
-class Menu extends ActiveRecord {
+class Menu extends ActiveRecord
+{
 
 	/**
 	 * Menu item types
@@ -113,6 +114,18 @@ class Menu extends ActiveRecord {
 	/**
 	 * @inheritdoc
 	 */
+	public function init()
+	{
+		parent::init();
+
+		$this->active = true;
+		$this->type = self::TYPE_LINK;
+		$this->url = '#';
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	public function attributeLabels()
 	{
 		return [
@@ -131,6 +144,7 @@ class Menu extends ActiveRecord {
 		return [
 			'tree' => [
 				'class' => NestedSetsBehavior::className(),
+				'treeAttribute' => 'tree',
 			],
 		];
 	}

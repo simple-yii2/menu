@@ -1,22 +1,26 @@
 <?php
 
 return [
-	'Main menu' => 'Главное меню',
-	'Create menu item' => 'Добавить элемент меню',
+	'Menus' => 'Меню',
+	'Create menu' => 'Добавить меню',
 
 	'Changes saved successfully.' => 'Изменения успешно сохранены.',
-	'Menu item not found.' => 'Элемент меню не найден.',
-	'Menu item deleted successfully.' => 'Элемент меню успешно удален.',
+	'Menu not found.' => 'Меню не найдено.',
+	'Menu deleted successfully.' => 'Меню успешно удалено.',
+	'Item not found.' => 'Элемент не найден.',
+	'Item deleted successfully.' => 'Элемент успешно удален.',
 
 	'Name' => 'Наименование',
 	'Active' => 'Активный',
 	'Type' => 'Тип',
 	'Url' => 'Адрес ссылки',
 	'Resource' => 'Ресурс',
+	'Alias' => 'Псевдоним',
 
 	'Save' => 'Сохранить',
 	'Cancel' => 'Отмена',
 	'Create' => 'Добавить',
+	'Create item' => 'Добавить элемент',
 
 	'Section' => 'Раздел',
 	'Link' => 'Ссылка',

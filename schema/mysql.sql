@@ -1,6 +1,7 @@
 create table if not exists `Menu`
 (
 	`id` int(10) not null auto_increment,
+	`tree` int(10),
 	`lft` int(10) not null,
 	`rgt` int(10) not null,
 	`depth` int(10) not null,
@@ -9,5 +10,6 @@ create table if not exists `Menu`
 	`type` int(10) not null,
 	`url` varchar(200) default null,
 	`alias` varchar(100) default null,
-	primary key (`id`)
+	primary key (`id`),
+	key `alias` (`alias`)
 ) engine InnoDB;

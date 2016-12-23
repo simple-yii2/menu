@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use dkhlystov\widgets\NestedTreeGrid;
 use cms\menu\common\models\Menu;
 
-$title = Yii::t('menu', 'Main menu');
+$title = Yii::t('menu', 'Menus');
 
 $this->title = $title . ' | ' . Yii::$app->name;
 
@@ -22,6 +22,7 @@ $this->params['breadcrumbs'] = [
 
 <?= NestedTreeGrid::widget([
 	'dataProvider' => $dataProvider,
+	'showRoots' => true,
 	'initialNode' => $initial,
 	'moveAction' => ['move'],
 	'tableOptions' => ['class' => 'table table-condensed'],
@@ -29,16 +30,29 @@ $this->params['breadcrumbs'] = [
 		return !$model->active ? ['class' => 'warning'] : [];
 	},
 	'columns' => [
-		'name',
+		[
+			'attribute' => 'name',
+			'format' => 'html',
+			'value' => function($model, $key, $index, $column) {
+				$value = Html::encode($model->name);
+				if ($model->isRoot())
+					$value .= '&nbsp;' . Html::tag('span', Html::encode($model->alias), ['class' => 'label label-primary']);
+
+				return $value;
+			}
+		],
 		[
 			'class' => 'yii\grid\ActionColumn',
 			'options' => ['style' => 'width: 75px;'],
 			'template' => '{update} {delete} {create}',
 			'buttons' => [
 				'create' => function ($url, $model, $key) {
-					if ($model->type != Menu::TYPE_SECTION) return '';
+					$isSection = $model->type == Menu::TYPE_SECTION;
 
-					$title = Yii::t('menu', 'Create');
+					if (!($model->isRoot() || $isSection))
+						return '';
+
+					$title = Yii::t('menu', 'Create item');
 
 					return Html::a('<span class="glyphicon glyphicon-plus"></span>', $url, [
 						'title' => $title,
@@ -47,6 +61,12 @@ $this->params['breadcrumbs'] = [
 					]);
 				},
 			],
+			'urlCreator' => function ($action, $model, $key, $index) {
+				if ($action == 'create' || !$model->isRoot())
+					$action = 'item/' . $action;
+
+				return [$action, 'id' => $model->id];
+			},
 		],
 	],
 ]) ?>

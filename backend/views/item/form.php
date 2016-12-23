@@ -10,7 +10,7 @@ use cms\menu\common\models\Menu;
 MenuFormAsset::register($this);
 
 $typeOptions = [];
-if ($model->item !== null && $model->item->children()->count() > 0)
+if ($model->getObject()->children()->count() > 0)
 	$typeOptions['disabled'] = true;
 
 $urlOptions = [];
@@ -44,7 +44,7 @@ if ($model->type === Menu::TYPE_SECTION || $model->type === Menu::TYPE_LINK || $
 	<div class="form-group">
 		<div class="col-sm-offset-3 col-sm-6">
 			<?= Html::submitButton(Yii::t('menu', 'Save'), ['class' => 'btn btn-primary']) ?>
-			<?= Html::a(Yii::t('menu', 'Cancel'), ['index', 'id' => $id], ['class' => 'btn btn-default']) ?>
+			<?= Html::a(Yii::t('menu', 'Cancel'), ['index', 'id' => $parent_id], ['class' => 'btn btn-default']) ?>
 		</div>
 	</div>
 

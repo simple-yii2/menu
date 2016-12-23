@@ -5,10 +5,12 @@ namespace cms\menu\backend\models;
 use Yii;
 use yii\base\Model;
 
+use cms\menu\common\models\Menu;
+
 /**
- * Main menu item editting form
+ * Item editting form
  */
-class MenuForm extends Model
+class ItemForm extends Model
 {
 
 	/**
@@ -22,7 +24,18 @@ class MenuForm extends Model
 	public $name;
 
 	/**
-	 * @var string Alias
+	 * @var integer Type of menu item.
+	 * @see cms\menu\common\models\Menu
+	 */
+	public $type;
+
+	/**
+	 * @var string Menu item url.
+	 */
+	public $url;
+
+	/**
+	 * @var string Resource alias for some types of menu item.
 	 */
 	public $alias;
 
@@ -42,6 +55,8 @@ class MenuForm extends Model
 		//attributes
 		$this->active = $object->active == 0 ? '0' : '1';
 		$this->name = $object->name;
+		$this->type = $object->type;
+		$this->url = $object->url;
 		$this->alias = $object->alias;
 
 		parent::__construct($config);
@@ -55,7 +70,9 @@ class MenuForm extends Model
 		return [
 			'active' => Yii::t('menu', 'Active'),
 			'name' => Yii::t('menu', 'Name'),
-			'alias' => Yii::t('menu', 'Alias'),
+			'type' => Yii::t('menu', 'Type'),
+			'url' => Yii::t('menu', 'Url'),
+			'alias' => Yii::t('menu', 'Resource'),
 		];
 	}
 
@@ -67,15 +84,21 @@ class MenuForm extends Model
 		return [
 			[['name', 'alias'], 'string', 'max' => 100],
 			['active', 'boolean'],
-			['alias', 'required'],
+			['type', 'integer'],
+			['url', 'string', 'max' => 200],
 		];
+	}
+
+	public function getObject()
+	{
+		return $this->_object;
 	}
 
 	/**
 	 * Save object using model attributes
 	 * @return boolean
 	 */
-	public function save()
+	public function save($parent = null)
 	{
 		if (!$this->validate())
 			return false;
@@ -84,10 +107,12 @@ class MenuForm extends Model
 
 		$object->active = $this->active == 1;
 		$object->name = $this->name;
+		$object->type = $this->type;
+		$object->url = $this->url;
 		$object->alias = $this->alias;
 
 		if ($object->getIsNewRecord()) {
-			if (!$object->makeRoot(false))
+			if (!$object->appendTo($parent, false))
 				return false;
 		} else {
 			if (!$object->save(false))
