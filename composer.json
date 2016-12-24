@@ -1,8 +1,8 @@
 {
-    "name": "simple-yii2/menus",
-    "description": "Menus module for Yii 2 framework",
+    "name": "simple-yii2/menu",
+    "description": "Menu module for Yii 2 framework",
     "type": "yii2-module",
-    "keywords": ["yii2","module","menus"],
+    "keywords": ["yii2","module","menu"],
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "cms\\menus\\": ""
+            "cms\\menu\\": ""
         }
     }
 }
