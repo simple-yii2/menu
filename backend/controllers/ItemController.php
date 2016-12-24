@@ -56,7 +56,7 @@ class ItemController extends Controller
 
 		return $this->render('create', [
 			'model' => $model,
-			'parent_id' => $id,
+			'id' => $id,
 		]);
 	}
 
@@ -71,8 +71,6 @@ class ItemController extends Controller
 		if ($object === null || $object->isRoot())
 			throw new BadRequestHttpException(Yii::t('menu', 'Item not found.'));
 
-		$parent = $object->parents(1)->one();
-
 		$model = new ItemForm($object);
 
 		if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
@@ -85,7 +83,7 @@ class ItemController extends Controller
 
 		return $this->render('update', [
 			'model' => $model,
-			'parent_id' => $parent->id,
+			'id' => $object->id,
 		]);
 	}
 
