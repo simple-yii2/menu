@@ -23,6 +23,7 @@ class Menu extends ActiveRecord
 	const TYPE_PAGE = 2;
 	const TYPE_GALLERY = 3;
 	const TYPE_CONTACTS = 4;
+	const TYPE_NEWS = 5;
 
 	/**
 	 * Making available type list
@@ -52,6 +53,9 @@ class Menu extends ActiveRecord
 
 			if ($className == 'cms\contact\backend\Module')
 				$typeList[self::TYPE_CONTACTS] = Yii::t('menu', 'Contacts');
+
+			if ($className == 'cms\news\backend\Module')
+				$typeList[self::TYPE_NEWS] = Yii::t('menu', 'News');
 		}
 
 		return $typeList;

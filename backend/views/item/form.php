@@ -21,7 +21,10 @@ $aliasOptions = ['options' => [
 	'data-url' => Url::toRoute('alias'),
 	'class' => 'form-group',
 ]];
-if ($model->type === Menu::TYPE_SECTION || $model->type === Menu::TYPE_LINK || $model->type === Menu::TYPE_CONTACTS)
+if ($model->type === Menu::TYPE_SECTION || 
+	$model->type === Menu::TYPE_LINK || 
+	$model->type === Menu::TYPE_CONTACTS || 
+	$model->type === Menu::TYPE_NEWS)
 	Html::addCssClass($aliasOptions['options'], 'hidden');
 
 ?>

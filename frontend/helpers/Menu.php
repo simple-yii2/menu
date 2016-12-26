@@ -23,9 +23,14 @@ class Menu
 	private static $_galleryRoute = '/gallery/gallery/index';
 
 	/**
-	 * @var string Route to contacts module
+	 * @var string Route to contact module
 	 */
 	private static $_contactsRoute = '/contact/contact/index';
+
+	/**
+	 * @var string Route to news module
+	 */
+	private static $_newsRoute = '/news/news/index';
 
 	/**
 	 * Get main menu items
@@ -104,6 +109,10 @@ class Menu
 				$url = [self::getContactsRoute()];
 				break;
 			
+			case models\Menu::TYPE_NEWS:
+				$url = [self::getNewsRoute()];
+				break;
+			
 			default:
 				$url = '#';
 				break;
@@ -149,6 +158,18 @@ class Menu
 	}
 
 	/**
+	 * Get route to news module
+	 * @return string
+	 */
+	public static function getNewsRoute()
+	{
+		if (self::$_newsRoute === null)
+			self::prepareRoutes();
+		
+		return self::$_newsRoute;
+	}
+
+	/**
 	 * Determine routes from application module config
 	 * @return void
 	 */
@@ -171,6 +192,9 @@ class Menu
 
 			if ($className == 'cms\contact\frontend\Module')
 				self::$_contactsRoute = '/' . $name . '/contact/index';
+
+			if ($className == 'cms\news\frontend\Module')
+				self::$_newsRoute = '/' . $name . '/news/index';
 		}
 	}
 
