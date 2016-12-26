@@ -100,7 +100,7 @@ class Menu extends ActiveRecord
 	{
 		$items = [];
 
-		foreach (\cms\gallery\common\models\Gallery::find()->select(['alias', 'title'])->andWhere(['>', 'lft', '1'])->asArray()->all() as $row) {
+		foreach (\cms\gallery\common\models\Gallery::find()->select(['alias', 'title'])->asArray()->all() as $row) {
 			$items[$row['alias']] = $row['title'];
 		}
 

@@ -96,9 +96,10 @@ class ItemForm extends Model
 
 	/**
 	 * Save object using model attributes
+	 * @param cms\menu\common\models\Menu|null $object 
 	 * @return boolean
 	 */
-	public function save($parent = null)
+	public function save(\cms\menu\common\models\Menu $parent = null)
 	{
 		if (!$this->validate())
 			return false;
