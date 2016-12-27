@@ -24,7 +24,8 @@ $aliasOptions = ['options' => [
 if ($model->type === Menu::TYPE_SECTION || 
 	$model->type === Menu::TYPE_LINK || 
 	$model->type === Menu::TYPE_CONTACT || 
-	$model->type === Menu::TYPE_NEWS)
+	$model->type === Menu::TYPE_NEWS ||
+	$model->type === Menu::TYPE_REVIEW)
 	Html::addCssClass($aliasOptions['options'], 'hidden');
 
 ?>

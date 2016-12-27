@@ -24,6 +24,7 @@ class Menu extends ActiveRecord
 	const TYPE_GALLERY = 3;
 	const TYPE_CONTACT = 4;
 	const TYPE_NEWS = 5;
+	const TYPE_REVIEW = 6;
 
 	/**
 	 * Making available type list
@@ -56,6 +57,9 @@ class Menu extends ActiveRecord
 
 			if ($className == 'cms\news\backend\Module')
 				$typeList[self::TYPE_NEWS] = Yii::t('menu', 'News');
+
+			if ($className == 'cms\review\backend\Module')
+				$typeList[self::TYPE_REVIEW] = Yii::t('menu', 'Reviews');
 		}
 
 		return $typeList;
