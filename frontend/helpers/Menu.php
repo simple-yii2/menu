@@ -105,7 +105,7 @@ class Menu
 				$url = [self::getGalleryRoute(), 'alias' => $item->alias];
 				break;
 			
-			case models\Menu::TYPE_CONTACTS:
+			case models\Menu::TYPE_CONTACT:
 				$url = [self::getContactsRoute()];
 				break;
 			

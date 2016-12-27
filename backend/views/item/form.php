@@ -23,7 +23,7 @@ $aliasOptions = ['options' => [
 ]];
 if ($model->type === Menu::TYPE_SECTION || 
 	$model->type === Menu::TYPE_LINK || 
-	$model->type === Menu::TYPE_CONTACTS || 
+	$model->type === Menu::TYPE_CONTACT || 
 	$model->type === Menu::TYPE_NEWS)
 	Html::addCssClass($aliasOptions['options'], 'hidden');
 

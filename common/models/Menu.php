@@ -22,7 +22,7 @@ class Menu extends ActiveRecord
 	const TYPE_LINK = 1;
 	const TYPE_PAGE = 2;
 	const TYPE_GALLERY = 3;
-	const TYPE_CONTACTS = 4;
+	const TYPE_CONTACT = 4;
 	const TYPE_NEWS = 5;
 
 	/**
@@ -52,7 +52,7 @@ class Menu extends ActiveRecord
 				$typeList[self::TYPE_GALLERY] = Yii::t('menu', 'Gallery');
 
 			if ($className == 'cms\contact\backend\Module')
-				$typeList[self::TYPE_CONTACTS] = Yii::t('menu', 'Contacts');
+				$typeList[self::TYPE_CONTACT] = Yii::t('menu', 'Contacts');
 
 			if ($className == 'cms\news\backend\Module')
 				$typeList[self::TYPE_NEWS] = Yii::t('menu', 'News');
