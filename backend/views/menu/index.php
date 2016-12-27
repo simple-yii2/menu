@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 use dkhlystov\widgets\NestedTreeGrid;
-use cms\menu\common\helpers\MenuType;
+use cms\menu\common\models\Menu;
 
 $title = Yii::t('menu', 'Menus');
 
@@ -35,8 +35,13 @@ $this->params['breadcrumbs'] = [
 			'format' => 'html',
 			'value' => function($model, $key, $index, $column) {
 				$value = Html::encode($model->name);
-				if ($model->isRoot())
-					$value .= '&nbsp;' . Html::tag('span', Html::encode($model->alias), ['class' => 'label label-primary']);
+				if ($model->isRoot()) {
+					$value .= ' ' . Html::tag('span', Html::encode($model->alias), ['class' => 'label label-primary']);
+				} elseif ($model->type == Menu::LINK) {
+					$value .= ' ' . Html::tag('span', Html::encode($model->url), ['class' => 'text-info']);
+				} elseif ($model->type != Menu::SECTION) {
+					$value .= ' ' . Html::tag('span', Html::encode($model->getTypeName()), ['class' => 'label label-default']);
+				}
 
 				return $value;
 			}
@@ -47,7 +52,7 @@ $this->params['breadcrumbs'] = [
 			'template' => '{update} {delete} {create}',
 			'buttons' => [
 				'create' => function ($url, $model, $key) {
-					$isSection = $model->type == MenuType::TYPE_SECTION;
+					$isSection = $model->type == Menu::SECTION;
 
 					if (!($model->isRoot() || $isSection))
 						return '';

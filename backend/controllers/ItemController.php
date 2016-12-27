@@ -11,7 +11,6 @@ use yii\web\BadRequestHttpException;
 
 use cms\menu\backend\models\ItemForm;
 use cms\menu\common\models\Menu;
-use cms\menu\common\helpers\MenuType;
 
 /**
  * Item manage controller
@@ -118,7 +117,7 @@ class ItemController extends Controller
 	{
 		return Json::encode([
 			'type' => (integer) $type,
-			'items' => MenuType::getAliasList($type),
+			'items' => Menu::getAliasListByType($type),
 		]);
 	}
 

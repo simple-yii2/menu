@@ -8,13 +8,30 @@ use yii\db\ActiveRecord;
 
 use creocoder\nestedsets\NestedSetsBehavior;
 use creocoder\nestedsets\NestedSetsQueryBehavior;
-use cms\menu\common\helpers\MenuType;
 
 /**
  * Main menu active record
  */
 class Menu extends ActiveRecord
 {
+
+	const SECTION = 0;
+	const LINK = 1;
+	const PAGE = 2;
+	const GALLERY = 3;
+	const CONTACT = 4;
+	const NEWS = 5;
+	const REVIEW = 6;
+
+	private static $typeNames = [
+		self::SECTION => 'Section',
+		self::LINK => 'Link',
+		self::PAGE => 'Page',
+		self::GALLERY => 'Gallery',
+		self::CONTACT => 'Contacts',
+		self::NEWS => 'News',
+		self::REVIEW => 'Reviews',
+	];
 
 	/**
 	 * @inheritdoc
@@ -27,12 +44,79 @@ class Menu extends ActiveRecord
 	/**
 	 * @inheritdoc
 	 */
+	public static function instantiate($row)
+	{
+		switch ($row['type']) {
+			case self::SECTION:
+				return new MenuSection;
+			case self::LINK:
+				return new MenuLink;
+			case self::PAGE:
+				return new MenuPage;
+			case self::GALLERY:
+				return new MenuGallery;
+			case self::CONTACT:
+				return new MenuContact;
+			case self::NEWS:
+				return new MenuNews;
+			case self::REVIEW:
+				return new MenuPreview;
+			default:
+				return new static;
+		}
+	}
+
+	public static function getTypeNames()
+	{
+		$names = [];
+		foreach (self::$typeNames as $type => $name) {
+			$object = self::instantiate(['type' => $type]);
+			if ($object->isEnabled())
+				$names[$type] = Yii::t('menu', $name);
+		}
+
+		return $names;
+	}
+
+	public static function getTypesWithUrl()
+	{
+		$types = [];
+		foreach (self::$typeNames as $type => $name) {
+			$object = self::instantiate(['type' => $type]);
+			if ($object->isUrlNeeded())
+				$types[] = $type;
+		}
+
+		return $types;
+	}
+
+	public static function getTypesWithAlias()
+	{
+		$types = [];
+		foreach (self::$typeNames as $type => $name) {
+			$object = self::instantiate(['type' => $type]);
+			if ($object->isAliasNeeded())
+				$types[] = $type;
+		}
+
+		return $types;
+	}
+
+	public static function getAliasListByType($type)
+	{
+		$object = self::instantiate(['type' => $type]);
+
+		return $object->getAliasList();
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	public function init()
 	{
 		parent::init();
 
 		$this->active = true;
-		$this->type = MenuType::TYPE_LINK;
 		$this->url = '#';
 	}
 
@@ -60,6 +144,36 @@ class Menu extends ActiveRecord
 			$model = static::findOne(['id' => $alias]);
 
 		return $model;
+	}
+
+	public function getTypeName()
+	{
+		return Yii::t('menu', self::$typeNames[$this->type]);
+	}
+
+	public function isEnabled()
+	{
+		return false;
+	}
+
+	public function isUrlNeeded()
+	{
+		return false;
+	}
+
+	public function isAliasNeeded()
+	{
+		return false;
+	}
+
+	public function getAliasList()
+	{
+		return [];
+	}
+
+	public function createUrl()
+	{
+		return '#';
 	}
 
 	/**

@@ -6,12 +6,11 @@ use yii\helpers\Url;
 
 use cms\menu\backend\assets\MenuFormAsset;
 use cms\menu\common\models\Menu;
-use cms\menu\common\helpers\MenuType;
 
 MenuFormAsset::register($this);
 
-$typesWithUrl = MenuType::getTypesWithUrl();
-$typesWithAlias = MenuType::getTypesWithAlias();
+$typesWithUrl = Menu::getTypesWithUrl();
+$typesWithAlias = Menu::getTypesWithAlias();
 
 $typeOptions = [];
 if ($model->getObject()->children()->count() > 0)
@@ -43,11 +42,11 @@ if (!in_array($model->type, $typesWithAlias))
 
 	<?= $form->field($model, 'name') ?>
 
-	<?= $form->field($model, 'type')->dropDownList(MenuType::getTypeList(), $typeOptions) ?>
+	<?= $form->field($model, 'type')->dropDownList(Menu::getTypeNames(), $typeOptions) ?>
 
 	<?= $form->field($model, 'url', $urlOptions) ?>
 
-	<?= $form->field($model, 'alias', $aliasOptions)->dropDownList(MenuType::getAliasList($model->type)) ?>
+	<?= $form->field($model, 'alias', $aliasOptions)->dropDownList($model->getAliasList()) ?>
 
 	<div class="form-group">
 		<div class="col-sm-offset-3 col-sm-6">

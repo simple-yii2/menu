@@ -94,6 +94,11 @@ class ItemForm extends Model
 		return $this->_object;
 	}
 
+	public function getAliasList()
+	{
+		return $this->_object->getAliasList();
+	}
+
 	/**
 	 * Save object using model attributes
 	 * @param cms\menu\common\models\Menu|null $object 
