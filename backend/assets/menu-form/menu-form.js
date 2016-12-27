@@ -7,17 +7,17 @@ $(function() {
 			$urlGroup = $form.find('.field-itemform-url'),
 			$aliasGroup = $form.find('.field-itemform-alias');
 
-		if (type === 1) {
+		if ($form.data('typesWithUrl').indexOf(type) != -1) {
 			$urlGroup.removeClass('hidden');
 		} else {
 			$urlGroup.addClass('hidden');
 		}
 
-		if (type === 0 || type === 1 || type === 4 || type === 5) {
-			$aliasGroup.addClass('hidden');
-		} else {
+		if ($form.data('typesWithAlias').indexOf(type) != -1) {
 			$aliasGroup.removeClass('hidden');
 			refreshAliasList($aliasGroup, type);
+		} else {
+			$aliasGroup.addClass('hidden');
 		}
 	});
 

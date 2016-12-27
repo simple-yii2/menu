@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 use dkhlystov\widgets\NestedTreeGrid;
-use cms\menu\common\models\Menu;
+use cms\menu\common\helpers\MenuType;
 
 $title = Yii::t('menu', 'Menus');
 
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'] = [
 			'template' => '{update} {delete} {create}',
 			'buttons' => [
 				'create' => function ($url, $model, $key) {
-					$isSection = $model->type == Menu::TYPE_SECTION;
+					$isSection = $model->type == MenuType::TYPE_SECTION;
 
 					if (!($model->isRoot() || $isSection))
 						return '';
