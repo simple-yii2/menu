@@ -60,7 +60,7 @@ class Menu extends ActiveRecord
 			case self::NEWS:
 				return new MenuNews;
 			case self::REVIEW:
-				return new MenuPreview;
+				return new MenuReview;
 			default:
 				return new static;
 		}
