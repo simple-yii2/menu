@@ -22,6 +22,7 @@ class Menu extends ActiveRecord
 	const CONTACT = 4;
 	const NEWS = 5;
 	const REVIEW = 6;
+	const FEEDBACK = 7;
 
 	private static $typeNames = [
 		self::SECTION => 'Section',
@@ -31,6 +32,7 @@ class Menu extends ActiveRecord
 		self::CONTACT => 'Contacts',
 		self::NEWS => 'News',
 		self::REVIEW => 'Reviews',
+		self::FEEDBACK => 'Feedback',
 	];
 
 	/**
@@ -61,6 +63,8 @@ class Menu extends ActiveRecord
 				return new MenuNews;
 			case self::REVIEW:
 				return new MenuReview;
+			case self::FEEDBACK:
+				return new MenuFeedback;
 			default:
 				return new static;
 		}
