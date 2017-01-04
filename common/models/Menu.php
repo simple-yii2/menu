@@ -10,7 +10,7 @@ use creocoder\nestedsets\NestedSetsBehavior;
 use creocoder\nestedsets\NestedSetsQueryBehavior;
 
 /**
- * Main menu active record
+ * Menu active record
  */
 class Menu extends ActiveRecord
 {
@@ -140,7 +140,7 @@ class Menu extends ActiveRecord
 	/**
 	 * Find by alias
 	 * @param sring $alias Alias or id
-	 * @return Menu
+	 * @return static
 	 */
 	public static function findByAlias($alias) {
 		$model = static::findOne(['alias' => $alias]);
