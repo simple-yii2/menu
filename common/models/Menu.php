@@ -204,7 +204,7 @@ class Menu extends ActiveRecord
 }
 
 /**
- * Main menu active query
+ * Menu active query
  */
 class MenuQuery extends ActiveQuery
 {
