@@ -7,8 +7,6 @@ use yii\web\AssetBundle;
 class MenuFormAsset extends AssetBundle
 {
 
-	public $sourcePath = __DIR__ . '/menu-form';
-
 	public $js = [
 		'menu-form.js',
 	];
@@ -16,5 +14,12 @@ class MenuFormAsset extends AssetBundle
 	public $depends = [
 		'yii\web\JqueryAsset',
 	];
+
+	public function init()
+	{
+		parent::init();
+
+		$this->sourcePath = __DIR__ . '/menu-form';
+	}
 
 }
