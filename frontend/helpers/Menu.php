@@ -25,7 +25,7 @@ class Menu
 	 * @param boolean $activeOnly 
 	 * @return array
 	 */
-	public static function getItems($alias, $activeOnly = true)
+	public static function getItems($alias, &$breadcrumbs = [], $activeOnly = true)
 	{
 		$root = models\Menu::findByAlias($alias);
 		if ($root === null)
@@ -36,9 +36,14 @@ class Menu
 
 		$objects = array_merge([$root], $root->children()->all());
 
+		if (!is_array($breadcrumbs))
+			$breadcrumbs = [];
+
 		$i = 0;
 		$a = false;
-		$item = self::makeBranch($objects, $i, $a, $activeOnly);
+		$item = self::makeBranch($objects, $i, $a, $breadcrumbs, $activeOnly);
+
+		array_shift($breadcrumbs);
 
 		return ArrayHelper::getValue($item, 'items', []);
 	}
@@ -51,7 +56,7 @@ class Menu
 	 * @param boolean $activeOnly Only object with active = true
 	 * @return array
 	 */
-	private static function makeBranch($objects, &$i, &$isActive, $activeOnly)
+	private static function makeBranch($objects, &$i, &$isActive, &$breadcrumbs, $activeOnly)
 	{
 		$object = $objects[$i];
 		$url = $object->createUrl();
@@ -67,18 +72,20 @@ class Menu
 			$i++;
 			$o = $objects[$i];
 
-			$item = self::makeBranch($objects, $i, $a, $activeOnly);
+			$item = self::makeBranch($objects, $i, $a, $breadcrumbs, $activeOnly);
 
 			if (!$activeOnly || $o->active)
 				$items[] = $item;
 		}
-		if (!empty($items))
-			$result['items'] = $items;
 
 		if ($a || self::isActive($url)) {
-			$result['active'] = true;
 			$isActive = true;
+			$result['active'] = true;
+			array_unshift($breadcrumbs, $object->name);
 		}
+
+		if (!empty($items))
+			$result['items'] = $items;
 
 		return $result;
 	}
