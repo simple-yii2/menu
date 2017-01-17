@@ -78,10 +78,17 @@ class Menu
 				$items[] = $item;
 		}
 
-		if ($a || self::isActive($url)) {
-			$isActive = true;
+		$isItemActive = self::isActive($url);
+		if ($a || $isItemActive) {
 			$result['active'] = true;
-			array_unshift($breadcrumbs, $object->name);
+
+			$breadcrumbsItem = ['label' => $object->name];
+			if ($isItemActive && !empty($breadcrumbs))
+				$breadcrumbsItem['url'] = $url;
+
+			array_unshift($breadcrumbs, $breadcrumbsItem);
+
+			$isActive = true;
 		}
 
 		if (!empty($items))
