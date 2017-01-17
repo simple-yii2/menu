@@ -3,11 +3,12 @@
 namespace cms\menu\frontend\helpers;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 use cms\menu\common\models;
 
 /**
- * Main menu helper.
+ * Main menu helper
  */
 class Menu
 {
@@ -27,37 +28,39 @@ class Menu
 		if ($activeOnly && !$root->active)
 			return [];
 
-		$query = $root->children();
-		if ($activeOnly)
-			$query->andWhere(['active' => true]);
+		$objects = array_merge([$root], $root->children()->all());
 
-		$children = $query->all();
+		$i = 0;
+		$item = self::makeBranch($objects, $i, $activeOnly);
 
-		$result = [];
-		for ($i = 0; $i < sizeof($children); $i++)
-			$result[] = self::makeBranch($children, $i);
-
-		return $result;
+		return ArrayHelper::getValue($item, 'items', []);
 	}
 
 	/**
 	 * Make menu branch
-	 * @param models\Menu[] $children 
+	 * @param models\Menu[] $objects 
 	 * @param integer &$i 
+	 * @param boolean $activeOnly 
 	 * @return array
 	 */
-	private static function makeBranch($children, &$i)
+	private static function makeBranch($objects, &$i, $activeOnly)
 	{
-		$child = $children[$i];
+		$object = $objects[$i];
+
 		$result = [
-			'label' => $child->name,
-			'url' => $child->createUrl(),
+			'label' => $object->name,
+			'url' => $object->createUrl(),
 		];
 
 		$items = [];
-		while (($i < sizeof($children) - 1) && $children[$i + 1]->depth > $child->depth) {
+		while (($i < sizeof($objects) - 1) && $objects[$i + 1]->depth > $object->depth) {
 			$i++;
-			$items[] = self::makeBranch($children, $i);
+			$o = $objects[$i];
+
+			$item = self::makeBranch($objects, $i, $activeOnly);
+
+			if (!$activeOnly || $o->active)
+				$items[] = $item;
 		}
 		if (!empty($items))
 			$result['items'] = $items;
