@@ -61,6 +61,9 @@ class Menu
 		$object = $objects[$i];
 		$url = $object->createUrl();
 
+		if ($object->type == models\Menu::DIVIDER) 
+			return '<li role="separator" class="divider"></li>';
+
 		$result = [
 			'label' => $object->name,
 			'url' => $url,
