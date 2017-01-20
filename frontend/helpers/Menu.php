@@ -36,14 +36,9 @@ class Menu
 
 		$objects = array_merge([$root], $root->children()->all());
 
-		if (!is_array($breadcrumbs))
-			$breadcrumbs = [];
-
 		$i = 0;
 		$a = false;
-		$item = self::makeBranch($objects, $i, $a, $breadcrumbs, $activeOnly);
-
-		array_shift($breadcrumbs);
+		$item = self::makeBranch($objects, $i, $a, $activeOnly);
 
 		return ArrayHelper::getValue($item, 'items', []);
 	}
@@ -56,7 +51,7 @@ class Menu
 	 * @param boolean $activeOnly Only object with active = true
 	 * @return array
 	 */
-	private static function makeBranch($objects, &$i, &$isActive, &$breadcrumbs, $activeOnly)
+	private static function makeBranch($objects, &$i, &$isActive, $activeOnly)
 	{
 		$object = $objects[$i];
 		$url = $object->createUrl();
@@ -75,7 +70,7 @@ class Menu
 			$i++;
 			$o = $objects[$i];
 
-			$item = self::makeBranch($objects, $i, $a, $breadcrumbs, $activeOnly);
+			$item = self::makeBranch($objects, $i, $a, $activeOnly);
 
 			if (!$activeOnly || $o->active)
 				$items[] = $item;
@@ -84,12 +79,6 @@ class Menu
 		$isItemActive = self::isActive($url);
 		if ($a || $isItemActive) {
 			$result['active'] = true;
-
-			$breadcrumbsItem = ['label' => $object->name];
-			if ($isItemActive && !empty($breadcrumbs))
-				$breadcrumbsItem['url'] = $url;
-
-			array_unshift($breadcrumbs, $breadcrumbsItem);
 
 			$isActive = true;
 		}
