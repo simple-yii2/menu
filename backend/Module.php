@@ -4,40 +4,27 @@ namespace cms\menu\backend;
 
 use Yii;
 
-use cms\menu\common\models\Menu;
+use cms\components\BackendModule;
 
 /**
  * Menu backend module
  */
-class Module extends \yii\base\Module {
+class Module extends BackendModule
+{
 
 	/**
 	 * @inheritdoc
 	 */
-	public function init()
+	public static function moduleName()
 	{
-		parent::init();
-
-		$this->checkDatabase();
-		self::addTranslation();
+		return 'menu';
 	}
 
 	/**
-	 * Database checking
-	 * @return void
+	 * @inheritdoc
 	 */
-	protected function checkDatabase()
+	protected static function cmsSecurity()
 	{
-		//schema
-		$db = Yii::$app->db;
-		$filename = dirname(__DIR__) . '/schema/' . $db->driverName . '.sql';
-		$sql = explode(';', file_get_contents($filename));
-		foreach ($sql as $s) {
-			if (trim($s) !== '')
-				$db->createCommand($s)->execute();
-		}
-
-		//rbac
 		$auth = Yii::$app->getAuthManager();
 		if ($auth->getRole('Menu') === null) {
 			//menu role
@@ -47,36 +34,16 @@ class Module extends \yii\base\Module {
 	}
 
 	/**
-	 * Adding translation to i18n
-	 * @return void
+	 * @inheritdoc
 	 */
-	protected static function addTranslation()
+	public static function cmsMenu($base)
 	{
-		if (!isset(Yii::$app->i18n->translations['menu'])) {
-			Yii::$app->i18n->translations['menu'] = [
-				'class' => 'yii\i18n\PhpMessageSource',
-				'sourceLanguage' => 'en-US',
-				'basePath' => dirname(__DIR__) . '/messages',
-			];
-		}
-	}
+		if (!Yii::$app->user->can('Menu'))
+			return [];
 
-	/**
-	 * Making menu item of module
-	 * @param string $base route base
-	 * @return array
-	 */
-	public static function getMenu($base)
-	{
-		self::addTranslation();
-
-		if (Yii::$app->user->can('Menu')) {
-			return [
-				['label' => Yii::t('menu', 'Menus'), 'url' => ["$base/menu/menu/index"]],
-			];
-		}
-		
-		return [];
+		return [
+			['label' => Yii::t('menu', 'Menus'), 'url' => ["$base/menu/menu/index"]],
+		];
 	}
 
 }
