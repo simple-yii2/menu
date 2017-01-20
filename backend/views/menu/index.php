@@ -40,7 +40,13 @@ $this->params['breadcrumbs'] = [
 				} elseif ($model->type == Menu::LINK) {
 					$value .= ' ' . Html::tag('span', Html::encode($model->url), ['class' => 'text-info']);
 				} elseif ($model->type != Menu::SECTION) {
-					$value .= ' ' . Html::tag('span', Html::encode($model->getTypeName()), ['class' => 'label label-default']);
+					$type = Html::tag('span', Html::encode($model->getTypeName()), ['class' => 'label label-default']);
+
+					if ($model->type == Menu::DIVIDER) {
+						$value = $type;
+					} else {
+						$value .= ' ' . $type;
+					}
 				}
 
 				return $value;

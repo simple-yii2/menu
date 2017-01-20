@@ -23,9 +23,11 @@ class Menu extends ActiveRecord
 	const NEWS = 5;
 	const REVIEW = 6;
 	const FEEDBACK = 7;
+	const DIVIDER = 8;
 
 	private static $typeNames = [
 		self::SECTION => 'Section',
+		self::DIVIDER => 'Divider',
 		self::LINK => 'Link',
 		self::PAGE => 'Page',
 		self::GALLERY => 'Gallery',
@@ -51,6 +53,8 @@ class Menu extends ActiveRecord
 		switch ($row['type']) {
 			case self::SECTION:
 				return new MenuSection;
+			case self::DIVIDER:
+				return new MenuDivider;
 			case self::LINK:
 				return new MenuLink;
 			case self::PAGE:
@@ -80,6 +84,18 @@ class Menu extends ActiveRecord
 		}
 
 		return $names;
+	}
+
+	public static function getTypesWithName()
+	{
+		$types = [];
+		foreach (self::$typeNames as $type => $name) {
+			$object = self::instantiate(['type' => $type]);
+			if ($object->isNameNeeded())
+				$types[] = $type;
+		}
+
+		return $types;
 	}
 
 	public static function getTypesWithUrl()
@@ -158,6 +174,11 @@ class Menu extends ActiveRecord
 	public function isEnabled()
 	{
 		return false;
+	}
+
+	public function isNameNeeded()
+	{
+		return true;
 	}
 
 	public function isUrlNeeded()

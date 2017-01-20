@@ -9,12 +9,17 @@ use cms\menu\common\models\Menu;
 
 MenuFormAsset::register($this);
 
+$typesWithName = Menu::getTypesWithName();
 $typesWithUrl = Menu::getTypesWithUrl();
 $typesWithAlias = Menu::getTypesWithAlias();
 
 $typeOptions = [];
 if ($model->getObject()->children()->count() > 0)
 	$typeOptions['disabled'] = true;
+
+$nameOptions = [];
+if (!in_array($model->type, $typesWithName))
+	$nameOptions['options'] = ['class' => 'form-group hidden'];
 
 $urlOptions = [];
 if (!in_array($model->type, $typesWithUrl))
@@ -33,6 +38,7 @@ if (!in_array($model->type, $typesWithAlias))
 	'enableClientValidation' => false,
 	'options' => [
 		'class' => 'menu-form',
+		'data-types-with-name' => $typesWithName,
 		'data-types-with-url' => $typesWithUrl,
 		'data-types-with-alias' => $typesWithAlias,
 	],
@@ -40,9 +46,9 @@ if (!in_array($model->type, $typesWithAlias))
 
 	<?= $form->field($model, 'active')->checkbox() ?>
 
-	<?= $form->field($model, 'name') ?>
-
 	<?= $form->field($model, 'type')->dropDownList(Menu::getTypeNames(), $typeOptions) ?>
+
+	<?= $form->field($model, 'name', $nameOptions) ?>
 
 	<?= $form->field($model, 'url', $urlOptions) ?>
 
