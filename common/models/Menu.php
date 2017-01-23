@@ -136,8 +136,11 @@ class Menu extends ActiveRecord
 	{
 		parent::init();
 
-		$this->active = true;
-		$this->url = '#';
+		if ($this->active === null)
+			$this->active = true;
+
+		if ($this->url === null)
+			$this->url = '#';
 	}
 
 	/**
