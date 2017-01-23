@@ -126,7 +126,8 @@ class MenuController extends Controller
 		$object = Menu::findOne($id);
 		if ($object === null)
 			throw new BadRequestHttpException(Yii::t('menu', 'Item not found.'));
-		$oIsRoot = $object->isRoot();
+		if ($object->isRoot())
+			return;
 
 		$t = Menu::findOne($target);
 		if ($t === null)
@@ -135,17 +136,17 @@ class MenuController extends Controller
 
 		switch ($position) {
 			case 0:
-				if (!($oIsRoot || $tIsRoot))
+				if (!$tIsRoot)
 					$object->insertBefore($t);
 				break;
 
 			case 1:
-				if (!$oIsRoot)
+				if ($t->type == Menu::SECTION)
 					$object->appendTo($t);
 				break;
 			
 			case 2:
-				if (!($oIsRoot || $tIsRoot))
+				if (!$tIsRoot)
 					$object->insertAfter($t);
 				break;
 		}

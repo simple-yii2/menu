@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\web\JsExpression;
 
 use dkhlystov\widgets\NestedTreeGrid;
 use cms\menu\common\models\Menu;
@@ -26,8 +27,18 @@ $this->params['breadcrumbs'] = [
 	'initialNode' => $initial,
 	'moveAction' => ['move'],
 	'tableOptions' => ['class' => 'table table-condensed'],
+	'pluginOptions' => [
+		'onMoveOver' => new JsExpression('function (item, helper, target, position) {
+			return position != 1 || target.data("type") == 0;
+		}'),
+	],
 	'rowOptions' => function ($model, $key, $index, $grid) {
-		return !$model->active ? ['class' => 'warning'] : [];
+		$options = ['data-type' => $model->type];
+
+		if (!$model->active)
+			Html::addCssClass($options, 'warning');
+
+		return $options;
 	},
 	'columns' => [
 		[
