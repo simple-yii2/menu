@@ -14,7 +14,7 @@
         "yiisoft/yii2": "*",
         "creocoder/yii2-nested-sets": "0.9.*",
         "dkhlystov/yii2-treegrid": "*",
-        "simple-yii2/cms": "1.0.*"
+        "simple-yii2/cms": ">=1.0.0"
     },
     "autoload": {
         "psr-4": {
