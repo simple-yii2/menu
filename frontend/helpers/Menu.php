@@ -20,12 +20,18 @@ class Menu
 	private static $_pathInfo;
 
 	/**
+	 * @var models\Menu curently selected menu item 
+	 */
+	private static $_activeItem;
+
+	/**
 	 * Get main menu items
 	 * @param string $alias 
 	 * @param boolean $activeOnly 
+	 * @param array $breadcrumbs original application breadcrumbs
 	 * @return array
 	 */
-	public static function getItems($alias, &$breadcrumbs = [], $activeOnly = true)
+	public static function getItems($alias, $activeOnly = true, &$breadcrumbs = null)
 	{
 		$root = models\Menu::findByAlias($alias);
 		if ($root === null)
@@ -36,9 +42,13 @@ class Menu
 
 		$objects = array_merge([$root], $root->children()->all());
 
+		self::$_activeItem = null;
+
 		$i = 0;
 		$a = false;
 		$item = self::makeBranch($objects, $i, $a, $activeOnly);
+
+		$breadcrumbs = self::makeBreadcrumbs($breadcrumbs);
 
 		return ArrayHelper::getValue($item, 'items', []);
 	}
@@ -80,6 +90,9 @@ class Menu
 		if ($a || $isItemActive) {
 			$result['active'] = true;
 
+			if ($isItemActive)
+				self::$_activeItem = $object;
+
 			$isActive = true;
 		}
 
@@ -96,6 +109,9 @@ class Menu
 	 */
 	private static function isActive($url)
 	{
+		if (self::$_activeItem !== null)
+			return false;
+
 		if (self::$_pathInfo === null)
 			self::$_pathInfo = self::getPathInfo(Yii::$app->getRequest()->absoluteUrl);
 
@@ -127,6 +143,55 @@ class Menu
 			'path' => ArrayHelper::getValue($info, 'path'),
 			'params' => $params,
 		];
+	}
+
+	/**
+	 * Making breadcrumbs for currently selected item
+	 * 
+	 * If item is not selected or it's link item, breadcrumbs returns as is.
+	 * Otherwise first items of original breadcrumbs replaces with parents of menu item.
+	 * 
+	 * @param array $breadcrumbs original application breadcrumbs 
+	 * @return array
+	 */
+	private static function makeBreadcrumbs($breadcrumbs)
+	{
+		if ($breadcrumbs === null)
+			$breadcrumbs = ArrayHelper::getValue(Yii::$app->params, 'breadcrumbs', []);
+
+		$object = self::$_activeItem;
+
+		if ($object === null)
+			return $breadcrumbs;
+
+		if ($object instanceof models\MenuLink)
+			return $breadcrumbs;
+
+		array_shift($breadcrumbs);
+
+		$parents = [];
+		$isFirst = true;
+		foreach ($object->parents()->all() as $parent) {
+			if ($isFirst) {
+				$isFirst = false;
+				continue;
+			}
+
+			$item = ['label' => $parent->name];
+			$url = $parent->createUrl();
+			if ($url != '#')
+				$item['url'] = $url;
+
+			$parents[] = $item;
+		}
+
+		$item = ['label' => $object->name];
+		$url = $parent->createUrl();
+		if (!empty($breadcrumbs) && $url != '#')
+			$item['url'] = $url;
+		$parents[] = $item;
+
+		return array_merge($parents, $breadcrumbs);
 	}
 
 }
