@@ -2,6 +2,8 @@
 
 namespace cms\menu\common\models;
 
+use cms\gallery\common\models\Gallery;
+
 class MenuGallery extends Menu
 {
 
@@ -37,7 +39,11 @@ class MenuGallery extends Menu
 	public function getAliasList()
 	{
 		$items = [];
-		foreach (\cms\gallery\common\models\Gallery::find()->select(['alias', 'title'])->asArray()->all() as $row) {
+		$query = Gallery::find()
+			->select(['alias', 'title'])
+			->where(['type' => Gallery::TYPE_COLLECTION]);
+
+		foreach ($query->asArray()->all() as $row) {
 			$items[$row['alias']] = $row['title'];
 		}
 
