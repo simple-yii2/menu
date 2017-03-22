@@ -40,8 +40,7 @@ class MenuGallery extends Menu
 	{
 		$items = [];
 		$query = Gallery::find()
-			->select(['alias', 'title'])
-			->where(['type' => Gallery::TYPE_COLLECTION]);
+			->select(['alias', 'title']);
 
 		foreach ($query->asArray()->all() as $row) {
 			$items[$row['alias']] = $row['title'];
