@@ -49,7 +49,7 @@ class MenuCatalog extends Menu
 	 */
 	public function createUrl()
 	{
-		return ['/catalog/offer/index', 'alias' => $this->alias];
+		return ['/catalog/product/index', 'alias' => $this->alias];
 	}
 
 }
