@@ -1,4 +1,4 @@
-create table if not exists `Menu`
+create table if not exists `menu`
 (
 	`id` int(10) not null auto_increment,
 	`tree` int(10),

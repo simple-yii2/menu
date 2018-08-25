@@ -44,7 +44,7 @@ class Menu extends ActiveRecord
 	 */
 	public static function tableName()
 	{
-		return 'Menu';
+		return 'menu';
 	}
 
 	/**
