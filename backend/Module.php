@@ -12,38 +12,32 @@ use cms\components\BackendModule;
 class Module extends BackendModule
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public static function moduleName()
-	{
-		return 'menu';
-	}
+    /**
+     * @inheritdoc
+     */
+    protected static function cmsSecurity()
+    {
+        $auth = Yii::$app->getAuthManager();
+        if ($auth->getRole('Menu') === null) {
+            //role
+            $role = $auth->createRole('Menu');
+            $auth->add($role);
+        }
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	protected static function cmsSecurity()
-	{
-		$auth = Yii::$app->getAuthManager();
-		if ($auth->getRole('Menu') === null) {
-			//menu role
-			$menu = $auth->createRole('Menu');
-			$auth->add($menu);
-		}
-	}
+    /**
+     * @inheritdoc
+     */
+    public function cmsMenu()
+    {
+        if (!Yii::$app->user->can('Menu')) {
+            return [];
+        }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function cmsMenu($base)
-	{
-		if (!Yii::$app->user->can('Menu'))
-			return [];
-
-		return [
-			['label' => Yii::t('menu', 'Menus'), 'url' => ["$base/menu/menu/index"]],
-		];
-	}
+        return [
+            'label' => Yii::t('menu', 'Menus'),
+            'url' => ["/menu/menu/index"],
+        ];
+    }
 
 }
