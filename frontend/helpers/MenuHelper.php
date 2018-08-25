@@ -9,9 +9,9 @@ use yii\helpers\Url;
 use cms\menu\common\models;
 
 /**
- * Main menu helper
+ * Menu helper
  */
-class Menu
+class MenuHelper
 {
 
 	/**
