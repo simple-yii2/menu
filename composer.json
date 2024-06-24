@@ -13,8 +13,7 @@
     "require": {
         "yiisoft/yii2": "*",
         "creocoder/yii2-nested-sets": "0.9.*",
-        "dkhlystov/yii2-treegrid": "*",
-        "simple-yii2/cms": ">=1.0.0"
+        "dkhlystov/yii2-treegrid": "*"
     },
     "autoload": {
         "psr-4": {
